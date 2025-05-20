@@ -15,6 +15,7 @@ pipeline {
                    ls -la
                    node --version
                    npm --version
+                   npm config set cache /tmp/.npm-cache --global
                    npm ci
                    npm run build
                    ls -al
