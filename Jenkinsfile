@@ -31,5 +31,21 @@ pipeline {
                 '''
             }
         }
+        stage('Test') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                    args '-u 981:981' // ensures same UID:GID as Jenkins workspace
+                }
+            }
+            
+            steps {
+              sh '''
+               test -f build/index.html
+               npm test
+            '''
+            }
+        }
     }
 }
